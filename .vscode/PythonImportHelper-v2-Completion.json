@@ -1,0 +1,209 @@
+[
+    {
+        "label": "create_engine",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "MetaData",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Table",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "func",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "select",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Integer",
+        "importPath": "sqlalchemy.sql.sqltypes",
+        "description": "sqlalchemy.sql.sqltypes",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.sql.sqltypes",
+        "documentation": {}
+    },
+    {
+        "label": "VARCHAR",
+        "importPath": "sqlalchemy.sql.sqltypes",
+        "description": "sqlalchemy.sql.sqltypes",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.sql.sqltypes",
+        "documentation": {}
+    },
+    {
+        "label": "meta",
+        "importPath": "config.db",
+        "description": "config.db",
+        "isExtraImport": true,
+        "detail": "config.db",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "importPath": "config.db",
+        "description": "config.db",
+        "isExtraImport": true,
+        "detail": "config.db",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "importPath": "config.db",
+        "description": "config.db",
+        "isExtraImport": true,
+        "detail": "config.db",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "transmision",
+        "importPath": "models.modeltrans",
+        "description": "models.modeltrans",
+        "isExtraImport": true,
+        "detail": "models.modeltrans",
+        "documentation": {}
+    },
+    {
+        "label": "genero",
+        "importPath": "models.modeltrans",
+        "description": "models.modeltrans",
+        "isExtraImport": true,
+        "detail": "models.modeltrans",
+        "documentation": {}
+    },
+    {
+        "label": "actores",
+        "importPath": "models.modeltrans",
+        "description": "models.modeltrans",
+        "isExtraImport": true,
+        "detail": "models.modeltrans",
+        "documentation": {}
+    },
+    {
+        "label": "user",
+        "importPath": "routes.rout",
+        "description": "routes.rout",
+        "isExtraImport": true,
+        "detail": "routes.rout",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "kind": 5,
+        "importPath": "API.app.config.db",
+        "description": "API.app.config.db",
+        "peekOfCode": "engine = create_engine(\"mysql+pymysql://root:Andrea25%@host.docker.internal:3306/peliculas\")\nmeta= MetaData()",
+        "detail": "API.app.config.db",
+        "documentation": {}
+    },
+    {
+        "label": "transmision",
+        "kind": 5,
+        "importPath": "API.app.models.modeltrans",
+        "description": "API.app.models.modeltrans",
+        "peekOfCode": "transmision = Table (\"transmision\",meta, Column(\"idstream\" ,Integer),\nColumn(\"tipo\", VARCHAR(20)),\nColumn(\"title\" ,VARCHAR(120)),\nColumn(\"release_year\" ,Integer) ,\nColumn(\"listed_in\", VARCHAR(80)),\nColumn(\"duracion\", Integer ),\nColumn(\"TipoDuracion\", VARCHAR(10)),\nColumn(\"plataforma\", VARCHAR(20))\n)\nactores= Table(\"actores\",meta, Column(\"idstream\" ,Integer),",
+        "detail": "API.app.models.modeltrans",
+        "documentation": {}
+    },
+    {
+        "label": "get_max_duration",
+        "kind": 2,
+        "importPath": "API.app.routes.rout",
+        "description": "API.app.routes.rout",
+        "peekOfCode": "def get_max_duration(year:int,plataforma:str,tipoduracion:str):\n    with engine.connect() as conn :\n        respuesta = conn.execute(select(transmision.c.duracion,transmision.c.title)\n                                 .where(transmision.c.release_year==year)\n                                 .where(transmision.c.plataforma==plataforma)\n                                 .where(transmision.c.TipoDuracion==tipoduracion)\n                                 .order_by (transmision.c.duracion.desc()))\n        return respuesta.first()\n##Cantidad de películas y series (separado) por plataforma El request debe ser: get_count_plataform(plataforma)\n@user.get(\"/get_count_plataform\")",
+        "detail": "API.app.routes.rout",
+        "documentation": {}
+    },
+    {
+        "label": "get_count_plataform",
+        "kind": 2,
+        "importPath": "API.app.routes.rout",
+        "description": "API.app.routes.rout",
+        "peekOfCode": "def get_count_plataform(plataforma:str):\n    with engine.connect() as conn :\n        respuesta2 = conn.execute(select(func.count(transmision.c.tipo),transmision.c.plataforma,transmision.c.tipo)\n                                 .where(transmision.c.plataforma==plataforma)\n                                 .group_by (transmision.c.tipo,transmision.c.plataforma))\n        return respuesta2.fetchall()\t\n##Cantidad de veces que se repite un género y plataforma con mayor frecuencia del mismo. El request debe ser: get_listedin('genero')\n##Como ejemplo de género pueden usar 'comedy', el cuál deberia devolverles un count de 2099 para la plataforma de amazon.\n@user.get(\"/get_listedin\")\ndef get_listedin(genero:str):",
+        "detail": "API.app.routes.rout",
+        "documentation": {}
+    },
+    {
+        "label": "get_listedin",
+        "kind": 2,
+        "importPath": "API.app.routes.rout",
+        "description": "API.app.routes.rout",
+        "peekOfCode": "def get_listedin(genero:str):\n    with engine.connect() as conn :\n        respuesta3 = conn.execute(select(func.count(transmision.c.plataforma),transmision.c.plataforma)\n                                 .join(genero,transmision.c.idstream==genero.c.idstream)\n                                 .where(genero.c.listed_in==genero)\n                                 .group_by(transmision.c.plataforma))\n        return respuesta3.fetchall()\t\n##Actor que más se repite según plataforma y año. El request debe ser: get_actor(plataforma, año)\n ##Charles Bronson\n@user.get(\"/get_actor\")",
+        "detail": "API.app.routes.rout",
+        "documentation": {}
+    },
+    {
+        "label": "get_actor",
+        "kind": 2,
+        "importPath": "API.app.routes.rout",
+        "description": "API.app.routes.rout",
+        "peekOfCode": "def get_actor(plataforma:str,year:int):\n    with engine.connect() as conn :\n        respuesta4 = conn.execute(select(func.count(transmision.c.plataforma),actores.c.cast)\n                                 .join(actores,transmision.c.idstream==actores.c.idstream)\n                                 .where(transmision.c.plataforma==plataforma)\n                                 .where(transmision.c.release_year==year)\n                                 .where(transmision.c.cast!='No dato')\n                                 .group_by(actores.c.cast,transmision.c.plataforma,transmision.c.release_year)\n                                 .order_by(func.count(transmision.c.plataforma).desc())\n                                 )",
+        "detail": "API.app.routes.rout",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "API.app.main",
+        "description": "API.app.main",
+        "peekOfCode": "app = FastAPI(title = 'Rep Stream',\n              description='Reportes analisis uso de plataforma streaming',\n              version='1.0.1')\napp.include_router(user)",
+        "detail": "API.app.main",
+        "documentation": {}
+    }
+]
