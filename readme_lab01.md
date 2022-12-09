@@ -66,15 +66,14 @@ El reto es realizar el análisis exploratorio de datos (EDA), las tareas de ETL 
 + *Nota. - detalle y documentación anexo 6.1
 
 ## **4.2.- Carga de tablas a Mysql, preparación de consultas. Revisión de la información, preparación y verificación de las consultas(modelado).**
+
 ## **4.3.-Instalacion de Docker desktop para Windows.**
-
-
-
-
-
 
 ## **4.4. Instalación de FastAPI donde se organiza:**
 App que contiene las librerías Config, Models, Router
+
+<p align="center">
+<img src="https://github.com/giselamdp/PI01_DATA05/blob/main/imagenes/ImagenFastApi.png"
                
 En router se detallan la lógica de las consultas para que son visualizadas a través del localhost
 
