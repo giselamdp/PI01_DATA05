@@ -37,14 +37,15 @@ def get_count_plataform(plataforma:str):
 ##Como ejemplo de género pueden usar 'comedy', el cuál deberia devolverles un count de 2099 para la plataforma de amazon.
 
 @user.get("/get_listedin")
-def get_listedin(genero:str):
+def get_listedin(generos:str):
     with engine.connect() as conn :
         respuesta3 = conn.execute(select(func.count(transmision.c.plataforma),transmision.c.plataforma)
                                  .join(genero,transmision.c.idstream==genero.c.idstream)
-                                 .where(genero.c.listed_in==genero)
-                                 .group_by(transmision.c.plataforma))
+                                 .where(genero.c.listed_in==generos)
+                                 .group_by(transmision.c.plataforma)
+                                 .order_by(func.count(transmision.c.plataforma).desc()))
 
-        return respuesta3.fetchall()	
+        return respuesta3.first()	
 
 ##Actor que más se repite según plataforma y año. El request debe ser: get_actor(plataforma, año)
  ##Charles Bronson
@@ -55,10 +56,9 @@ def get_actor(plataforma:str,year:int):
                                  .join(actores,transmision.c.idstream==actores.c.idstream)
                                  .where(transmision.c.plataforma==plataforma)
                                  .where(transmision.c.release_year==year)
-                                 .where(transmision.c.cast!='No dato')
-                                 .group_by(actores.c.cast,transmision.c.plataforma,transmision.c.release_year)
-                                 .order_by(func.count(transmision.c.plataforma).desc())
-                                 )
+                                 .where(actores.c.cast!='No dato')
+                                 .group_by(actores.c.cast)
+                                 .order_by(func.count(transmision.c.plataforma).desc()))
 
         return respuesta4.first()	
 

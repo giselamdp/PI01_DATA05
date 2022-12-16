@@ -175,7 +175,7 @@
         "kind": 2,
         "importPath": "API.app.routes.rout",
         "description": "API.app.routes.rout",
-        "peekOfCode": "def get_count_plataform(plataforma:str):\n    with engine.connect() as conn :\n        respuesta2 = conn.execute(select(func.count(transmision.c.tipo),transmision.c.plataforma,transmision.c.tipo)\n                                 .where(transmision.c.plataforma==plataforma)\n                                 .group_by (transmision.c.tipo,transmision.c.plataforma))\n        return respuesta2.fetchall()\t\n##Cantidad de veces que se repite un género y plataforma con mayor frecuencia del mismo. El request debe ser: get_listedin('genero')\n##Como ejemplo de género pueden usar 'comedy', el cuál deberia devolverles un count de 2099 para la plataforma de amazon.\n@user.get(\"/get_listedin\")\ndef get_listedin(genero:str):",
+        "peekOfCode": "def get_count_plataform(plataforma:str):\n    with engine.connect() as conn :\n        respuesta2 = conn.execute(select(func.count(transmision.c.tipo),transmision.c.plataforma,transmision.c.tipo)\n                                 .where(transmision.c.plataforma==plataforma)\n                                 .group_by (transmision.c.tipo,transmision.c.plataforma))\n        return respuesta2.fetchall()\t\n##Cantidad de veces que se repite un género y plataforma con mayor frecuencia del mismo. El request debe ser: get_listedin('genero')\n##Como ejemplo de género pueden usar 'comedy', el cuál deberia devolverles un count de 2099 para la plataforma de amazon.\n@user.get(\"/get_listedin\")\ndef get_listedin(generos:str):",
         "detail": "API.app.routes.rout",
         "documentation": {}
     },
@@ -184,7 +184,7 @@
         "kind": 2,
         "importPath": "API.app.routes.rout",
         "description": "API.app.routes.rout",
-        "peekOfCode": "def get_listedin(genero:str):\n    with engine.connect() as conn :\n        respuesta3 = conn.execute(select(func.count(transmision.c.plataforma),transmision.c.plataforma)\n                                 .join(genero,transmision.c.idstream==genero.c.idstream)\n                                 .where(genero.c.listed_in==genero)\n                                 .group_by(transmision.c.plataforma))\n        return respuesta3.fetchall()\t\n##Actor que más se repite según plataforma y año. El request debe ser: get_actor(plataforma, año)\n ##Charles Bronson\n@user.get(\"/get_actor\")",
+        "peekOfCode": "def get_listedin(generos:str):\n    with engine.connect() as conn :\n        respuesta3 = conn.execute(select(func.count(transmision.c.plataforma),transmision.c.plataforma)\n                                 .join(genero,transmision.c.idstream==genero.c.idstream)\n                                 .where(genero.c.listed_in==generos)\n                                 .group_by(transmision.c.plataforma)\n                                 .order_by(func.count(transmision.c.plataforma).desc()))\n        return respuesta3.first()\t\n##Actor que más se repite según plataforma y año. El request debe ser: get_actor(plataforma, año)\n ##Charles Bronson",
         "detail": "API.app.routes.rout",
         "documentation": {}
     },
@@ -193,7 +193,7 @@
         "kind": 2,
         "importPath": "API.app.routes.rout",
         "description": "API.app.routes.rout",
-        "peekOfCode": "def get_actor(plataforma:str,year:int):\n    with engine.connect() as conn :\n        respuesta4 = conn.execute(select(func.count(transmision.c.plataforma),actores.c.cast)\n                                 .join(actores,transmision.c.idstream==actores.c.idstream)\n                                 .where(transmision.c.plataforma==plataforma)\n                                 .where(transmision.c.release_year==year)\n                                 .where(transmision.c.cast!='No dato')\n                                 .group_by(actores.c.cast,transmision.c.plataforma,transmision.c.release_year)\n                                 .order_by(func.count(transmision.c.plataforma).desc())\n                                 )",
+        "peekOfCode": "def get_actor(plataforma:str,year:int):\n    with engine.connect() as conn :\n        respuesta4 = conn.execute(select(func.count(transmision.c.plataforma),actores.c.cast)\n                                 .join(actores,transmision.c.idstream==actores.c.idstream)\n                                 .where(transmision.c.plataforma==plataforma)\n                                 .where(transmision.c.release_year==year)\n                                 .where(actores.c.cast!='No dato')\n                                 .group_by(actores.c.cast)\n                                 .order_by(func.count(transmision.c.plataforma).desc()))\n        return respuesta4.first()",
         "detail": "API.app.routes.rout",
         "documentation": {}
     },
